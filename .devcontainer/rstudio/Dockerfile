@@ -10,6 +10,9 @@ RUN --mount=type=cache,target=/cache,id=/cache-2004 R -e 'install.packages("renv
 # copy the renv directory from the OpenSAFELY R action image
 COPY --from=ghcr.io/opensafely-core/r /renv/ /renv/
 
+# copy the Python virtualenv from OpenSAFELY Python action image
+COPY --from=ghcr.io/opensafely-core/python /opt/venv /opt/venv
+
 # ensure fully working base python3.10 installation using deadsnakes ppa
 RUN --mount=type=cache,target=/var/cache/apt \
     echo "deb http://ppa.launchpad.net/deadsnakes/ppa/ubuntu focal main" > /etc/apt/sources.list.d/deadsnakes-ppa.list &&\
@@ -17,7 +20,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
 
 # Install python 3.10
 RUN --mount=type=cache,target=/var/cache/apt \
-    sudo apt update && sudo apt install -y curl python3.10 python3.10-distutils \
+    sudo apt update && sudo apt install -y curl python3.10 python3.10-distutils python3.10-venv\
     # Pip for Python 3.10 isn't included in deadsnakes, so install separately
     && curl https://bootstrap.pypa.io/get-pip.py | python3.10
 

@@ -12,5 +12,6 @@
     "extensions.ignoreRecommendations": true,
     "data.preview.theme": "light",
     "python.analysis.extraPaths": [".devcontainers/ehrql-main/"],
-    "python.defaultInterpreterPath": "/usr/bin/python3.10"
+    "python.defaultInterpreterPath": "/opt/venv/bin/python3.10",
+    "python.terminal.activateEnvironment": true
 }
